@@ -1,16 +1,14 @@
 <?php
 //cek apakah dari tombol submit
 if(isset($_POST['sumbit'])){
-    
+
     $nim = $_POST['nim'];
     $nama = $_POST['nama'];
     $id_jurusan = $_POST['id_jurusan'];
     $tpt_lahir = $_POST['tpt_lahir'];
     $gender = $_POST['gender'];
     $alamat = $_POST['alamat'];
-}
-
-    //1. buat koneksi dengan MySQL
+ //1. buat koneksi dengan MySQL
     $con = mysqli_connect("localhost","root","","seal_fakultas");
 
     //2. cek koneksi dengan MySQL
@@ -32,7 +30,7 @@ if(isset($_POST['sumbit'])){
     }
 
     //tutup koneksi dengan database
-    mysqli_close($con);
+    mysqli_close($con);}
 ?>
 <!DOCTYPE html>
 <html lang="en">
