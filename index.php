@@ -1,18 +1,53 @@
 <?php
+//1. buat koneksi dengan MySQL
+$con = mysqli_connect("localhost","root","","seal_fakultas");
 
-echo "hello world<br>";
+//2. cek koneksi dengan MySQL
+if(mysqli_connect_errno()){
+    echo "koneksi gagal". mysqli_connect_error();
+}else{
+    echo "koneksi berhasil";
+}
 
-$nama = "Chrissya";
-$umur = 21;
+//3. membaca data dari tabel mysql.
+$query = "SELECT * FROM mahasiswa";
 
-echo "nama saya $nama, saya berumur $umur tahun.<br>";
+//4. tampilkan data dengan menjalankan sql query
+$result = mysqli_query($con,$query);
+$mahasiswa = [];
+if ($result){
+    // tampilkan data satu persatu
+    while($row = mysqli_fetch_assoc($result)){
+        $mahasiswa[] = $row;
+    }
+    mysqli_free_result($result);
+}
 
-$namaAdik = "sasa";
-$umurAdik = 10;
-echo "nama adik saya $nama, adik saya berumur $umurAdik tahun<br>";
-
-$selisih = $umur-$umurAdik ;
-
-echo "selisih umur saya dan adik saya $selisih.";
-
+//5. tutup koneksi mysql
+mysqli_close($con);
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Mahasiswa</title>
+</head>
+<body>
+    <h1>Data Mahasiswa</h1>
+    <tabel border="1" style="width:100%;">
+        <tr>
+            <th>NIM</th>
+            <th>Nama</th>
+        </tr>
+        <?php foreach ($mahasiswa as $value): ?>
+        <tr>
+            <td><?php echo $value["nim"]; ?></td>
+            <td><?php echo $value["nama"]; ?></td>
+        </tr>  
+        <?php endforeach; ?> 
+    </table>
+</body>
+</html>
